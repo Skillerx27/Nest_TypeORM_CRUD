@@ -3,6 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Cats } from '../interfaces/cat.interfaces';
+import { Userm } from '../mongo/userm.entity';
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
@@ -10,7 +11,7 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     super();
   }
 
-  async validate(username: string, password: string): Promise<Cats> {
+  async validate(username: string, password: string): Promise<Userm> {
     console.log("local.strategy called")
     const user = await this.authService.validateUser(username, password);
     if (!user) {

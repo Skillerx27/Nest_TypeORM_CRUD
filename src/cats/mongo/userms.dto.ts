@@ -1,6 +1,6 @@
-export class usersDTO
+export class usermsDTO
 {
-    id?: number;
+    
     useremail: string;
     username: string;
     password: string;

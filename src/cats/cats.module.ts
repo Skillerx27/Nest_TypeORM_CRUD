@@ -8,9 +8,10 @@ import { CatCreatedMiddleware } from '../cats/common/middleware/cat-created.midd
 import { CatUpdatedMiddleware } from '../cats/common/middleware/cat-updated.middleware';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './sql/user.entity';
+import { Userm } from './mongo/userm.entity';
 @Module({
 
-  imports: [forwardRef(() => AuthModule),MongooseModule.forFeature([{name:'Cat', schema: CatsSchema}]),TypeOrmModule.forFeature([User])],
+  imports: [forwardRef(() => AuthModule),TypeOrmModule.forFeature([Userm]),TypeOrmModule.forFeature([User])],
   controllers: [ CatsController],
   providers: [ CatsService,CatsServicesql],
   exports: [CatsService,CatsServicesql]
@@ -33,6 +34,6 @@ export class CatsModule implements NestModule {
   //  )
   //  .forRoutes(CatsController);
   }
-    
+
 
 }

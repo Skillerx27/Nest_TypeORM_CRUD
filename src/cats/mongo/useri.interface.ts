@@ -1,6 +1,5 @@
-export class usersDTO
-{
-    id?: number;
+interface mongoInter {
+    
     useremail: string;
     username: string;
     password: string;

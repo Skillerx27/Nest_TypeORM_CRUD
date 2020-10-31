@@ -4,6 +4,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Model } from 'mongoose';
 import { Cats } from '../interfaces/cat.interfaces'
 import { CatDTO } from '../dtos/cats.dto';
+import { Userm } from '../mongo/userm.entity';
 @Injectable()
 export class AuthService {
   constructor(
@@ -11,15 +12,15 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async validateUser(username: string, pass: string): Promise<Cats> {
+  async validateUser(username: string, pass: string): Promise<Userm> {
     console.log("auth.service called")
-    
+
     const user = await this.usersService.find(username);
-    
+
     if (user && user.password === pass) {
         console.log("auth service recalled for checking")
       const result = user;
-      
+
       console.log("auth service recalled with valid user details from database ")
       return result;
     }

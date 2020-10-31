@@ -7,19 +7,39 @@ import { AuthModule } from './cats/auth/auth.module'
 import {createConnections} from "typeorm";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './cats/sql/user.entity';
+import { Userm } from './cats/mongo/userm.entity';
 
 @Module({
-  imports: [ CatsModule, MongooseModule.forRoot('mongodb://localhost:27017/cats'),AuthModule, 
+  imports: [ CatsModule,AuthModule,
   TypeOrmModule.forRoot({
+
+    type: 'mongodb',
+    host: 'localhost',
+    port: 27017,
+    database: 'cats',
+    //entities: [Userm],
+    synchronize: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    entities: [
+      Userm,User
+    ],
+  }),
+  TypeOrmModule.forRoot({
+
     type: 'mysql',
     host: 'localhost',
     port: 3306,
     username: 'root',
     password: '',
     database: 'test',
-    entities: [User],
+    //entities: [User],
     synchronize: true,
-  }),CatsModule],
+    entities: [
+      User
+    ]
+  }),
+  CatsModule],
   controllers: [AppController],
   providers: [AppService,CatsModule,AuthModule],
 
