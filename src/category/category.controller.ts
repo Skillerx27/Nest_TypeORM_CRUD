@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { proCategory } from './categorydata/procategory.entity';
+import { categoryInterface } from './categorydata/procategoryinter.interface';
 
 @Controller('category')
 export class CategoryController {

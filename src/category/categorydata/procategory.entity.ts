@@ -10,8 +10,6 @@ export class proCategory {
     @ObjectIdColumn()
     _id: ObjectID;
     
-    @Column()
-    id : string;
 
     @Column()
     title : string;
@@ -48,10 +46,10 @@ export class proCategory {
     @Column()
     updatedBy: string;
 
-    @ManyToOne(type => proCategory, category => category.children)
-    parent: proCategory;
+    @ManyToOne(type => proCategory, category => category.childCategories)
+    parentCategory: proCategory;
 
-    @OneToMany(type => proCategory, category => category.parent)
-    children: proCategory[];
+    @OneToMany(type => proCategory, category => category.parentCategory)
+    childCategories: proCategory[];
     
 }

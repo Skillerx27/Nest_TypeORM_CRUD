@@ -1,4 +1,6 @@
-interface categoryInterface {
+import { proCategory } from "./procategory.entity";
+
+export interface categoryInterface {
     
     name: string;
     id: string;
@@ -13,4 +15,7 @@ interface categoryInterface {
     createdBy: string;
     updatedAt: string;
     updatedBy: string;
+
+    parentId:string;
+    parentCategory:proCategory;
 }
