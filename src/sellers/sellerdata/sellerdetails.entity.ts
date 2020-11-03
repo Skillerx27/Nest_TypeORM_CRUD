@@ -11,11 +11,11 @@ export class SellerInfo  {
   @Column()
   shopname: string;
 
-  // @Column()
-  // username: string;
+  @Column()
+  username: string;
 
-  // @Column()
-  // password: string;
+  @Column()
+  password: string;
 
   @Column()
   cellNo: string;

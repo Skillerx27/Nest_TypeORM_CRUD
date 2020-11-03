@@ -36,31 +36,19 @@ export class CategoryService {
         console.log("CATEGORY CREATED =========",category)
         
         if( pCategory &&  data.parentId){
-          console.log("CONFIRM HAVING pCATEGORY and GIVEN PARENTID")
+          console.log("CONFIRM HAVING ")
           if(!pCategory.childCategories || !pCategory.childCategories.length){
-            console.log("CONFIRMING BOTH HAVE SOME VALUE")
             pCategory.childCategories=[];
           }
-           pCategory.childCategories.push(category);
+           //pCategory.childCategories.push(category);
           
-          console.log('pcategory id:===============',pCategory._id);
-          //await this.categoryRepository.update(pCategory._id,pCategory)
-          await this.categoryRepository.update(category.parentCategory._id,pCategory)
+          console.log('pcategory id: ',pCategory._id);
+          await this.categoryRepository.update(pCategory._id,pCategory)
         }
         
         ///return await this.categoryRepository.findOne(pCategory._id);
         return category;
 
-
-        // await this.usersmRepository.save(data);
-        // return user;
-        //return user;
-      }
-
-      async findAllChildren():Promise<proCategory[]>{
-          const data= await this.categoryRepository.find();
-          
-        return ;
       }
 
 

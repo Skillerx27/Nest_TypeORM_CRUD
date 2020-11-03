@@ -26,11 +26,7 @@ export class CategoryController {
         return this.categoryService.create(user);
     }
 
-    @Get('getchild')
-   findChildren():Promise<proCategory[]>{
-        const children = this.categoryService.findAllChildren();
-        return children;
-    }
+   
 
 
 }
