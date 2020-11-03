@@ -1,3 +1,4 @@
+import { ObjectID } from "typeorm";
 import { proCategory } from "./procategory.entity";
 
 export interface categoryInterface {
@@ -16,6 +17,10 @@ export interface categoryInterface {
     updatedAt: string;
     updatedBy: string;
 
-    parentId:string;
+    
+    
+    
+    parentId:ObjectID;
     parentCategory:proCategory;
+
 }
