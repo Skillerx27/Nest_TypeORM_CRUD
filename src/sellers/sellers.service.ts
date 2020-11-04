@@ -13,6 +13,7 @@ export class SellersService {
 
     constructor(
         @InjectRepository(SellerInfo,'ebhuvon') private readonly sellerinfoRepository: Repository<SellerInfo>,
+        @InjectRepository(sellerUser,'ebhuvon') private readonly sellerUserRepository: Repository<sellerUser>,
         @InjectRepository(UserInfo,'ebhuvon') private readonly userInfoRepository: Repository<UserInfo>){}
 
 
@@ -62,12 +63,13 @@ export class SellersService {
             data.user=user;
             await this.sellerinfoRepository.save(data);
 
+
             const seller_user = new sellerUser();
-            seller_user.user_id=data._id;
-            seller_user.seller_id=user._id;
+            seller_user.user_id=user._id;
+            seller_user.seller_id=data._id;
             
 
-            await this.sellerinfoRepository.save(seller_user);
+            await this.sellerUserRepository.save(seller_user);
 
             
 

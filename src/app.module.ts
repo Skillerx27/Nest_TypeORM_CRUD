@@ -20,6 +20,7 @@ import { SellersService } from './sellers/sellers.service';
 import { SellersModule } from './sellers/sellers.module';
 import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
 import { Connection } from 'typeorm';
+import { sellerUser } from './common/Entity/user_seller.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import { Connection } from 'typeorm';
         host: 'localhost',
         port: 27017,
         database: 'ebhuvon',
-        entities: [proCategory,UserInfo,SellerInfo,prodetails],
+        entities: [proCategory,UserInfo,SellerInfo,prodetails,sellerUser],
         synchronize: false,
         useNewUrlParser: true,
         logging: true,
@@ -94,6 +95,7 @@ import { Connection } from 'typeorm';
   TypeOrmModule.forFeature([prodetails ], 'ebhuvon'),
   TypeOrmModule.forFeature([UserInfo ], 'ebhuvon'),
   TypeOrmModule.forFeature([SellerInfo ], 'ebhuvon'),
+  TypeOrmModule.forFeature([sellerUser],'ebhuvon'),
   CategoryModule, ProductsModule, UsersModule,AuthModule, SellersModule],
   controllers: [AppController, CategoryController, ProductsController, UsersController, SellersController],
   providers: [AppService, CategoryService, ProductsService, UsersService,AuthModule, SellersService],

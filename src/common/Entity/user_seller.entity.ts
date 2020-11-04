@@ -7,10 +7,10 @@ export class sellerUser{
     @ObjectIdColumn()
     _id: ObjectID;
 
-    @Column()
+    @ObjectIdColumn()
     user_id: ObjectID;
 
-    @Column()
+    @ObjectIdColumn()
     seller_id: ObjectID;
     
     @Column()
