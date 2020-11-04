@@ -1,19 +1,56 @@
 import { Injectable } from '@nestjs/common';
 import { proCategory } from './categorydata/procategory.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository,TreeRepository,getRepository ,ObjectID} from 'typeorm';
+import { Repository,TreeRepository,getRepository, getMongoRepository ,ObjectID, createConnection, getConnectionManager} from 'typeorm';
 import { Mongoose } from 'mongoose'
 import { categoryInterface } from './categorydata/procategoryinter.interface';
 import { SellerInfo } from 'src/sellers/sellerdata/sellerdetails.entity';
+import {getConnection} from "typeorm";
+import { userInfo } from 'os';
 
 @Injectable()
 export class CategoryService {
     constructor( @InjectRepository(proCategory,'ebhuvon') private readonly categoryRepository: Repository<proCategory>,
       ) {}
 
-    async findAll(): Promise<proCategory[]> {
-        return this.categoryRepository.find();
+    async findAll(): Promise<any> {
+        console.log("find all");
+        const data=await this.categoryRepository.find({
+          where:{parentId:null},
+        })
+        return data;
+        const user = await getMongoRepository(proCategory,'ebhuvon')
+        .createQueryBuilder("user")
+        .where("user.id = :id", { id: null })
+        .getOne();
+        return user;
+        //return this.categoryRepository.findOne({parentId: null});
       }
+
+      async getChild(username: string): Promise<any>  {
+        console.log(username);
+        let data= await this.categoryRepository.findOne({
+          where:{title:username},
+        })
+       
+        console.log("Data==============", data);
+        
+        let pID = data._id;
+        console.log(pID);
+
+        const sub_category=await this.categoryRepository.find({
+          where:{parentId:pID},
+        })
+
+        console.log("SUB CATEGORYS=============",sub_category);
+
+
+        return sub_category;
+        //await this.categoryRepository.delete(name);
+
+        
+      }
+
 
       findbyid(username: string): Promise<proCategory> {
         return this.categoryRepository.findOne(username);
@@ -21,20 +58,17 @@ export class CategoryService {
 
       async findbyroot(): Promise<proCategory> {
         console.log("FINDROOT FUNCTION========")
-        const user = await getRepository(proCategory)
-        .createQueryBuilder("user")
-        .where("user.parentId: = :id", { id: null})
-        .getMany();
-        console.log(user);
+        
+        //console.log(user);
         // const user = await getRepository(proCategory)
         // .createQueryBuilder()
         // .select("pro_category")
         // .from(proCategory, "pro_category")
         // .where("pro_category.id = :id", { parentId: null })
         
-        return;
-      
+       return ;
       }
+    
 
       async create(data: proCategory):Promise<proCategory> {
         //const user = this.usersRepository.create(data);
@@ -76,7 +110,7 @@ export class CategoryService {
 
 
         
-        
+        data.parentId = null
         const category = await  this.categoryRepository.save(data);
 
 

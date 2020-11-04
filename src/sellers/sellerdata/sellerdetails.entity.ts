@@ -1,4 +1,5 @@
 import { type, userInfo } from 'os';
+import { sellerUser } from 'src/common/Entity/user_seller.entity';
 import { UserInfo } from 'src/users/userdata/userdetails.entity';
 import { StringDecoder } from 'string_decoder';
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToOne, JoinColumn } from 'typeorm';
@@ -6,7 +7,7 @@ import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, 
 @Entity()
 export class SellerInfo  {
   @ObjectIdColumn()
-  id: ObjectID;
+  _id: ObjectID;
 
   @Column()
   shopName: string;
@@ -56,4 +57,9 @@ export class SellerInfo  {
   @OneToOne(type=>UserInfo)
   @JoinColumn()
   user:UserInfo
+
+  @OneToOne(type=>sellerUser)
+  @JoinColumn()
+  sellerUser:sellerUser
+
 }

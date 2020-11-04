@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { from } from 'rxjs';
+import { sellerUser } from 'src/common/Entity/user_seller.entity';
+
 import { UserInfo } from 'src/users/userdata/userdetails.entity';
 import { Repository } from 'typeorm';
 import { SellerInfo } from './sellerdata/sellerdetails.entity';
@@ -35,10 +37,10 @@ export class SellersService {
         }
 
 
-        async update (id: number,data: SellerInfoInter) {
-        await this.sellerinfoRepository.update({id}, data)
-                return await this.sellerinfoRepository.findOne(id)
-        }
+        // async update (id: number,data: SellerInfoInter) {
+        // await this.sellerinfoRepository.update({_id}, data)
+        //         return await this.sellerinfoRepository.findOne(id)
+        // }
 
        
   
@@ -56,9 +58,20 @@ export class SellersService {
             user.password=data.password;
             user.mail=data.mail;
 
-
             await this.userInfoRepository.save(user);
             data.user=user;
+            await this.sellerinfoRepository.save(data);
+
+            const seller_user = new sellerUser();
+            seller_user.user_id=data._id;
+            seller_user.seller_id=user._id;
+            
+
+            await this.sellerinfoRepository.save(seller_user);
+
+            
+
+
             
             return await this.sellerinfoRepository.save(data);
             // await this.usersmRepository.save(data);

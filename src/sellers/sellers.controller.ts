@@ -31,11 +31,11 @@ export class SellersController {
       return this.authService.login(req.user);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @Put(':id')
-    update(@Param('id') id,@Body() user: SellerInfoInter) {
-        return this.sellerInfoService.update(id, user);
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Put(':id')
+    // update(@Param('id') id,@Body() user: SellerInfoInter) {
+    //     return this.sellerInfoService.update(id, user);
+    // }
 
 
 

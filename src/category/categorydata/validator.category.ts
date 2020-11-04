@@ -1,10 +1,12 @@
+import { IsNotEmpty } from "class-validator";
 import { ObjectID } from "typeorm";
 import { proCategory } from "./procategory.entity";
 
-export interface categoryInterface {
+export class categoryvalidator {
     
 
     id: string;
+    @IsNotEmpty({message:"field should not be empty"})
     title: string;
     slug: string;
     order: string;
@@ -20,6 +22,7 @@ export interface categoryInterface {
     
     
     
-    
+    parentId:ObjectID;
+    parentCategory:proCategory;
 
 }

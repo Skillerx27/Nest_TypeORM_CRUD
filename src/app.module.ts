@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 import { CategoryController } from './category/category.controller';
 import { CategoryService } from './category/category.service';
 import { CategoryModule } from './category/category.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
 import { proCategory } from './category/categorydata/procategory.entity';
 import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
@@ -19,22 +19,38 @@ import { SellersController } from './sellers/sellers.controller';
 import { SellersService } from './sellers/sellers.service';
 import { SellersModule } from './sellers/sellers.module';
 import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
+import { Connection } from 'typeorm';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-    name:'ebhuvon',
-    type: 'mongodb',
-    host: 'localhost',
-    port: 27017,
-    database: 'ebhuvon',
-    entities: [proCategory,UserInfo,SellerInfo,prodetails],
-    synchronize: false,
-    useNewUrlParser: true,
-    logging: true,
-    //autoLoadEntities: true,
-    useUnifiedTopology: true,
-  }),
+    TypeOrmModule.forRootAsync({
+        name:'ebhuvon',
+        useFactory: () => ({
+        type: 'mongodb',
+        host: 'localhost',
+        port: 27017,
+        database: 'ebhuvon',
+        entities: [proCategory,UserInfo,SellerInfo,prodetails],
+        synchronize: false,
+        useNewUrlParser: true,
+        logging: true,
+        //autoLoadEntities: true,
+         useUnifiedTopology: true,
+      }),
+    }),
+  //   TypeOrmModule.forRoot({
+  //   name:'ebhuvon',
+  //   type: 'mongodb',
+  //   host: 'localhost',
+  //   port: 27017,
+  //   database: 'ebhuvon',
+  //   entities: [proCategory,UserInfo,SellerInfo,prodetails],
+  //   synchronize: false,
+  //   useNewUrlParser: true,
+  //   logging: true,
+  //   //autoLoadEntities: true,
+  //   useUnifiedTopology: true,
+  // }),
   // TypeOrmModule.forRoot({
   //   name:'prodetail',
   //   type: 'mongodb',
@@ -83,4 +99,6 @@ import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
   providers: [AppService, CategoryService, ProductsService, UsersService,AuthModule, SellersService],
   exports:[TypeOrmModule]
 })
-export class AppModule {}
+export class AppModule {
+  
+}

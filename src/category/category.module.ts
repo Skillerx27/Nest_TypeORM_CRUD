@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CategoryController } from './category.controller';
 import { CategoryService } from './category.service';
 import { proCategory } from './categorydata/procategory.entity';
-
+import { Connection } from 'typeorm';
 @Module({
 
     imports: [TypeOrmModule,TypeOrmModule.forFeature([proCategory],'ebhuvon')],
@@ -15,4 +15,6 @@ import { proCategory } from './categorydata/procategory.entity';
 
 
 })
-export class CategoryModule {}
+export class CategoryModule {
+    
+}

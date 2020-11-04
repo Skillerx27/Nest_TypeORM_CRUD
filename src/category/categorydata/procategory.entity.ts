@@ -1,7 +1,7 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToOne, OneToMany, Tree, JoinTable, JoinColumn, TreeChildren, TreeParent, IsNull } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToOne, OneToMany, Tree, JoinTable, JoinColumn, TreeChildren, TreeParent, IsNull, BaseEntity } from 'typeorm';
 
-import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, IsNotEmpty} from "class-validator";
+import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, IsNotEmpty, IsDefined, isInt, min} from "class-validator";
  
 
 
@@ -9,17 +9,23 @@ import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, Is
 export class proCategory {
     // @PrimaryGeneratedColumn()
     // id: number
+    
+
+    
 
     @ObjectIdColumn()
     _id: ObjectID;
-    
-    @IsNotEmpty({message: "field should not be empty"})
+
+
+    @IsDefined()
+    @IsNotEmpty()
     @Column()
     title : string;
 
     @Column()
     slug: string;
 
+    
     @Column()
     id: string;
 

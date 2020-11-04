@@ -2,22 +2,16 @@
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
 
 @Entity()
-export class userSeller{
+export class sellerUser{
 
     @ObjectIdColumn()
     _id: ObjectID;
 
     @Column()
-    user_id: string;
+    user_id: ObjectID;
 
     @Column()
-    seller_id: string;
-
-    @Column()
-    username: string;
-
-    @Column()
-    password: string;
+    seller_id: ObjectID;
     
     @Column()
     createdAt: string;
