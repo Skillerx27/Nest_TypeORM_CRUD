@@ -9,7 +9,7 @@ export class SellerInfo  {
   id: ObjectID;
 
   @Column()
-  shopname: string;
+  shopName: string;
 
   @Column()
   username: string;
@@ -21,7 +21,7 @@ export class SellerInfo  {
   cellNo: string;
 
   @Column()
-  useremail: string;
+  mail: string;
 
   @Column()
   address: string;
@@ -49,6 +49,9 @@ export class SellerInfo  {
 
   @Column()
   UpdatedAt: string;
+
+  @Column()
+  status: string;
 
   @OneToOne(type=>UserInfo)
   @JoinColumn()

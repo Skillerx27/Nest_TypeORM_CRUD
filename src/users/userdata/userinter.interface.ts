@@ -1,14 +1,14 @@
 export interface UserInfoInter {
-    fullname ?: string;
+    fullName : string;
     username: string;
     password: string;
-    cellNo ?: string;
-    useremail ?: string;
-    address ?: string;
-    DOB ?: string;
-    gender ?: string;
+    cellNo : string;
+    mail : string;
+    address : string;
+    DOB : string;
+    gender : string;
     nationality ?: string;
-    role ?: string;
+    role : string;
     CreatedBy?: string;
     CreatedAt?: string;
     UpdatedBy?: string;

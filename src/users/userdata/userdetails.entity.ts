@@ -7,7 +7,7 @@ export class UserInfo {
     _id: ObjectID;
 
   @Column()
-  fullname: string;
+  fullName: string;
 
   @Column()
   username: string;
@@ -19,7 +19,7 @@ export class UserInfo {
   cellNo: string;
 
   @Column()
-  useremail: string;
+  mail: string;
 
   @Column()
   address: string;

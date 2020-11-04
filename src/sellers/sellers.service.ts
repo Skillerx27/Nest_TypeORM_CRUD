@@ -10,8 +10,8 @@ import { SellerInfoInter } from './sellerdata/sellerinter.interface'
 export class SellersService {
 
     constructor(
-        @InjectRepository(SellerInfo,'cats') private readonly sellerinfoRepository: Repository<SellerInfo>,
-        @InjectRepository(UserInfo,'cats') private readonly userInfoRepository: Repository<UserInfo>){}
+        @InjectRepository(SellerInfo,'ebhuvon') private readonly sellerinfoRepository: Repository<SellerInfo>,
+        @InjectRepository(UserInfo,'ebhuvon') private readonly userInfoRepository: Repository<UserInfo>){}
 
 
         async find(username: string): Promise<SellerInfo> {
@@ -23,12 +23,12 @@ export class SellersService {
                 console.log(name)
                 return await this.sellerinfoRepository.findOne({username:username});
             }
-            const email = await this.sellerinfoRepository.findOne({useremail:username});
+            const email = await this.sellerinfoRepository.findOne({mail:username});
             if(email!=null)
             {
                 console.log("HERE2222222222222")
                 console.log(name)
-                return await this.sellerinfoRepository.findOne({useremail:username});
+                return await this.sellerinfoRepository.findOne({mail:username});
             }
             
             
@@ -54,7 +54,7 @@ export class SellersService {
             const user = new UserInfo();
             user.username=data.username;
             user.password=data.password;
-            user.useremail=data.useremail;
+            user.mail=data.mail;
 
 
             await this.userInfoRepository.save(user);

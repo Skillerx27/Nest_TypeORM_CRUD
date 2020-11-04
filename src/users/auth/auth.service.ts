@@ -30,7 +30,7 @@ export class AuthService {
     const nuser = await this.sellerService.find(username);
     if (nuser && nuser.password === pass)  {
       console.log("auth service recalled for checking")
-    const result = user;
+    const result = nuser;
 
     console.log("auth service recalled with valid user details from database ")
     return result;
@@ -39,7 +39,7 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { useremail: user.useremail, username: user.username };
+    const payload = { mail: user.mail, username: user.username };
     console.log("payload from login")
     // console.log(user.useremail)
     // console.log(user.username)

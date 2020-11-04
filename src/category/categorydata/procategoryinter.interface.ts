@@ -3,7 +3,6 @@ import { proCategory } from "./procategory.entity";
 
 export interface categoryInterface {
     
-    name: string;
     id: string;
     title: string;
     slug: string;

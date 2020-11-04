@@ -6,23 +6,24 @@ import { UserInfoInter } from './userdata/userinter.interface';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(UserInfo,'cats')private readonly userInfoRepository: Repository<UserInfo>){}
+    constructor(@InjectRepository(UserInfo,'ebhuvon')private readonly userInfoRepository: Repository<UserInfo>){}
 
     async find(username: string): Promise<UserInfo> {
+        console.log("FINDING DETAILS",username)
         const name = await this.userInfoRepository.findOne({username:username});
-        
+        console.log(name)
         if(name!=null)
         {
             console.log("HERE1111111111111111")
             console.log(name)
             return await this.userInfoRepository.findOne({username:username});
         }
-        const email = await this.userInfoRepository.findOne({useremail:username});
+        const email = await this.userInfoRepository.findOne({mail:username});
         if(email!=null)
         {
             console.log("HERE2222222222222")
             console.log(name)
-            return await this.userInfoRepository.findOne({useremail:username});
+            return await this.userInfoRepository.findOne({mail:username});
         }
         
         

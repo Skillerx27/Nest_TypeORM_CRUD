@@ -8,7 +8,7 @@ import { SellerInfo } from 'src/sellers/sellerdata/sellerdetails.entity';
 
 @Injectable()
 export class CategoryService {
-    constructor( @InjectRepository(proCategory,'cats') private readonly categoryRepository: Repository<proCategory>,
+    constructor( @InjectRepository(proCategory,'ebhuvon') private readonly categoryRepository: Repository<proCategory>,
       ) {}
 
     async findAll(): Promise<proCategory[]> {
@@ -53,7 +53,6 @@ export class CategoryService {
 
           const user = new proCategory();
           user.parentId=pCategory._id;
-          user.name=data.name;
           user.slug=data.slug;
           user.status=data.status;
           user.title=data.title;

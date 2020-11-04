@@ -7,7 +7,7 @@ import { SellersController } from './sellers.controller';
 import { SellersService } from './sellers.service';
 
 @Module({
-  imports: [forwardRef(() => AuthModule),TypeOrmModule,TypeOrmModule.forFeature([SellerInfo],'cats'),TypeOrmModule.forFeature([UserInfo],'cats')],
+  imports: [forwardRef(() => AuthModule),TypeOrmModule,TypeOrmModule.forFeature([SellerInfo],'ebhuvon'),TypeOrmModule.forFeature([UserInfo],'ebhuvon')],
   controllers: [ SellersController],
   providers: [ SellersService,],
   exports: [SellersService]

@@ -23,11 +23,11 @@ import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-    name:'cats',
+    name:'ebhuvon',
     type: 'mongodb',
     host: 'localhost',
     port: 27017,
-    database: 'cats',
+    database: 'ebhuvon',
     entities: [proCategory,UserInfo,SellerInfo,prodetails],
     synchronize: false,
     useNewUrlParser: true,
@@ -74,10 +74,10 @@ import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
   //   //autoLoadEntities: true,
   //   useUnifiedTopology: true,
   // }),
-  TypeOrmModule.forFeature([proCategory ], 'cats'),
-  TypeOrmModule.forFeature([prodetails ], 'cats'),
-  TypeOrmModule.forFeature([UserInfo ], 'cats'),
-  TypeOrmModule.forFeature([SellerInfo ], 'cats'),
+  TypeOrmModule.forFeature([proCategory ], 'ebhuvon'),
+  TypeOrmModule.forFeature([prodetails ], 'ebhuvon'),
+  TypeOrmModule.forFeature([UserInfo ], 'ebhuvon'),
+  TypeOrmModule.forFeature([SellerInfo ], 'ebhuvon'),
   CategoryModule, ProductsModule, UsersModule,AuthModule, SellersModule],
   controllers: [AppController, CategoryController, ProductsController, UsersController, SellersController],
   providers: [AppService, CategoryService, ProductsService, UsersService,AuthModule, SellersService],

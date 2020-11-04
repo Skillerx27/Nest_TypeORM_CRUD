@@ -3,7 +3,7 @@ interface prodetailsInterface {
     name?: string;
     title?: string;
     category?: string;
-    imgurl?: string;
+    imgURL?: string;
     quantity?: string;
     price?: string;
     createdAt?: string;

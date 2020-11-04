@@ -1,11 +1,11 @@
 import { UserInfo } from "src/users/userdata/userdetails.entity";
 
 export interface SellerInfoInter {
-    shopname: string;
+    shopName: string;
     username:string;
     password:string;
     cellNo: string;
-    useremail: string;
+    mail: string;
     address: string;
     DOB: string;
     gender: string;

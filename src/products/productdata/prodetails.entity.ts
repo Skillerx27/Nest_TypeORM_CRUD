@@ -20,7 +20,7 @@ export class prodetails {
     category: string;
 
     @Column()
-    imgurl: string;
+    imgURL: string;
 
     @Column()
     price: string;

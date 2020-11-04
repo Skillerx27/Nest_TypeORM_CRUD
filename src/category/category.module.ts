@@ -6,7 +6,7 @@ import { proCategory } from './categorydata/procategory.entity';
 
 @Module({
 
-    imports: [TypeOrmModule,TypeOrmModule.forFeature([proCategory],'cats')],
+    imports: [TypeOrmModule,TypeOrmModule.forFeature([proCategory],'ebhuvon')],
     controllers: [ CategoryController],
     providers: [ CategoryService],
     exports: [CategoryService,]

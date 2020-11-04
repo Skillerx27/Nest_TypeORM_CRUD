@@ -7,7 +7,7 @@ import { UsersService } from './users.service';
 
 @Module({
 
-  imports: [forwardRef(() => AuthModule),TypeOrmModule,TypeOrmModule.forFeature([UserInfo],'cats')],
+  imports: [forwardRef(() => AuthModule),TypeOrmModule,TypeOrmModule.forFeature([UserInfo],'ebhuvon')],
   controllers: [ UsersController],
   providers: [ UsersService],
   exports: [UsersService]

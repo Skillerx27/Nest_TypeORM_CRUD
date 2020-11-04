@@ -6,7 +6,7 @@ import { prodetails } from './productdata/prodetails.entity';
 @Injectable()
 export class ProductsService {
 
-    constructor( @InjectRepository(prodetails,'cats') private readonly productRepository: Repository<prodetails>,
+    constructor( @InjectRepository(prodetails,'ebhuvon') private readonly productRepository: Repository<prodetails>,
       ) {}
 
 

@@ -20,11 +20,6 @@ export class proCategory {
     @Column()
     slug: string;
 
-
-    @Column()
-    name: string;
-    
-    
     @Column()
     id: string;
 
