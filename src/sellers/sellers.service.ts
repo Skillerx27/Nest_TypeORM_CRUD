@@ -3,21 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { from } from 'rxjs';
 import { sellerUser } from 'src/common/Entity/user_seller.entity';
 
-import { UserInfo } from 'src/users/userdata/userdetails.entity';
+import { users } from 'src/users/userdata/userdetails.entity';
 import { Repository } from 'typeorm';
-import { SellerInfo } from './sellerdata/sellerdetails.entity';
+import { sellers } from './sellerdata/sellerdetails.entity';
 import { SellerInfoInter } from './sellerdata/sellerinter.interface'
 
 @Injectable()
 export class SellersService {
 
     constructor(
-        @InjectRepository(SellerInfo,'ebhuvon') private readonly sellerinfoRepository: Repository<SellerInfo>,
-        @InjectRepository(sellerUser,'ebhuvon') private readonly sellerUserRepository: Repository<sellerUser>,
-        @InjectRepository(UserInfo,'ebhuvon') private readonly userInfoRepository: Repository<UserInfo>){}
+        @InjectRepository(sellers,'ebhubon') private readonly sellerinfoRepository: Repository<sellers>,
+        @InjectRepository(sellerUser,'ebhubon') private readonly sellerUserRepository: Repository<sellerUser>,
+        @InjectRepository(users,'ebhubon') private readonly userInfoRepository: Repository<users>){}
 
 
-        async find(username: string): Promise<SellerInfo> {
+        async find(username: string): Promise<sellers> {
             const name = await this.sellerinfoRepository.findOne({username:username});
             
             if(name!=null)
@@ -45,30 +45,31 @@ export class SellersService {
 
        
   
-        async findAll(): Promise<SellerInfo[]> {
+        async findAll(): Promise<sellers[]> {
             return  this.sellerinfoRepository.find();
         }
 
-        async create(data: SellerInfoInter):Promise<SellerInfo> {
+        async create(data: SellerInfoInter):Promise<sellers> {
             //const user = this.usersRepository.create(data);
             console.log("clalled mysql add method called")
             console.log(data)
+            
 
-            const user = new UserInfo();
+            //creating a user account from sellers
+            const user = new users();
             user.username=data.username;
             user.password=data.password;
             user.mail=data.mail;
-
+            
             await this.userInfoRepository.save(user);
-            data.user=user;
+            //data.user=user;
+            data.user_id = user._id;
             await this.sellerinfoRepository.save(data);
 
-
+            //creating table for storing sellers and users primary_key
             const seller_user = new sellerUser();
             seller_user.user_id=user._id;
             seller_user.seller_id=data._id;
-            
-
             await this.sellerUserRepository.save(seller_user);
 
             

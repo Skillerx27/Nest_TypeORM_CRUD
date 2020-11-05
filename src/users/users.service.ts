@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserInfo } from './userdata/userdetails.entity';
+import { users } from './userdata/userdetails.entity';
 import { UserInfoInter } from './userdata/userinter.interface';
 
 @Injectable()
 export class UsersService {
-    constructor(@InjectRepository(UserInfo,'ebhuvon')private readonly userInfoRepository: Repository<UserInfo>){}
+    constructor(@InjectRepository(users,'ebhubon')private readonly userInfoRepository: Repository<users>){}
 
-    async find(username: string): Promise<UserInfo> {
+    async find(username: string): Promise<users> {
         console.log("FINDING DETAILS",username)
         const name = await this.userInfoRepository.findOne({username:username});
         console.log(name)
@@ -30,7 +30,7 @@ export class UsersService {
     }
   
 
-    async create(data: UserInfoInter):Promise<UserInfo> {
+    async create(data: UserInfoInter):Promise<users> {
         //const user = this.usersRepository.create(data);
         console.log("clalled mysql add method called")
         console.log(data)

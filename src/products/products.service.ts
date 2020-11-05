@@ -1,24 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { prodetails } from './productdata/prodetails.entity';
+import { products } from './productdata/prodetails.entity';
 
 @Injectable()
 export class ProductsService {
 
-    constructor( @InjectRepository(prodetails,'ebhuvon') private readonly productRepository: Repository<prodetails>,
+    constructor( @InjectRepository(products,'ebhubon') private readonly productRepository: Repository<products>,
       ) {}
 
 
-    async findAll(): Promise<prodetails[]> {
+    async findAll(): Promise<products[]> {
         return this.productRepository.find();
       }
 
-      findbyid(username: string): Promise<prodetails> {
+      findbyid(username: string): Promise<products> {
         return this.productRepository.findOne(username);
       }
 
-      async create(data: prodetails):Promise<prodetails> {
+      async create(data: products):Promise<products> {
         //const user = this.usersRepository.create(data);
         console.log("clalled mysql add method called")
         console.log(data)

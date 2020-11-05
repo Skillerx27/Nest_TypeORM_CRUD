@@ -1,11 +1,11 @@
 import { type, userInfo } from 'os';
 import { sellerUser } from 'src/common/Entity/user_seller.entity';
-import { UserInfo } from 'src/users/userdata/userdetails.entity';
+import { users } from 'src/users/userdata/userdetails.entity';
 import { StringDecoder } from 'string_decoder';
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToOne, JoinColumn } from 'typeorm';
 
 @Entity()
-export class SellerInfo  {
+export class sellers  {
   @ObjectIdColumn()
   _id: ObjectID;
 
@@ -54,9 +54,9 @@ export class SellerInfo  {
   @Column()
   status: string;
 
-  @OneToOne(type=>UserInfo)
+  @OneToOne(type=>users)
   @JoinColumn()
-  user:UserInfo
+  user:users
 
   @OneToOne(type=>sellerUser)
   @JoinColumn()

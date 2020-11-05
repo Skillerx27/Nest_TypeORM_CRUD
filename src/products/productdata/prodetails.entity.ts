@@ -2,7 +2,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
 
 @Entity()
-export class prodetails {
+export class products {
 
     @ObjectIdColumn()
     _id: ObjectID;

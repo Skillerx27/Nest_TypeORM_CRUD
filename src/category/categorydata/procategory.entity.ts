@@ -6,7 +6,7 @@ import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, Is
 
 
 @Entity()
-export class proCategory {
+export class category {
     // @PrimaryGeneratedColumn()
     // id: number
     
@@ -18,7 +18,6 @@ export class proCategory {
 
 
     @IsDefined()
-    @IsNotEmpty()
     @Column()
     title : string;
 
@@ -60,11 +59,14 @@ export class proCategory {
     @ObjectIdColumn()
     parentId: ObjectID;
 
+    @Column()
+    children: category[];
 
-    @ManyToOne(type => proCategory, category => category.childCategories)
-    parentCategory: proCategory;
 
-    @OneToMany(type => proCategory, category => category.parentCategory)
-    childCategories: proCategory[];
+    @ManyToOne(type => category, category => category.childCategories)
+    parentCategory: category;
+
+    @OneToMany(type => category, category => category.parentCategory)
+    childCategories: category[];
     
 }

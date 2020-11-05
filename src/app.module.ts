@@ -5,33 +5,36 @@ import { CategoryController } from './category/category.controller';
 import { CategoryService } from './category/category.service';
 import { CategoryModule } from './category/category.module';
 import { TypeOrmModule, TypeOrmModuleAsyncOptions } from '@nestjs/typeorm';
-import { proCategory } from './category/categorydata/procategory.entity';
+import { category } from './category/categorydata/procategory.entity';
 import { ProductsController } from './products/products.controller';
 import { ProductsService } from './products/products.service';
 import { ProductsModule } from './products/products.module';
-import { prodetails } from './products/productdata/prodetails.entity';
+import { products } from './products/productdata/prodetails.entity';
 import { UsersController } from './users/users.controller';
 import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
-import { UserInfo } from './users/userdata/userdetails.entity';
+import { users } from './users/userdata/userdetails.entity';
 import { AuthModule } from './users/auth/auth.module';
 import { SellersController } from './sellers/sellers.controller';
 import { SellersService } from './sellers/sellers.service';
 import { SellersModule } from './sellers/sellers.module';
-import { SellerInfo } from './sellers/sellerdata/sellerdetails.entity';
+import { sellers } from './sellers/sellerdata/sellerdetails.entity';
 import { Connection } from 'typeorm';
 import { sellerUser } from './common/Entity/user_seller.entity';
+import { MediaController } from './media/media.controller';
+import { MediaService } from './media/media.service';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
-        name:'ebhuvon',
+        name:'ebhubon',
         useFactory: () => ({
         type: 'mongodb',
         host: 'localhost',
         port: 27017,
-        database: 'ebhuvon',
-        entities: [proCategory,UserInfo,SellerInfo,prodetails,sellerUser],
+        database: 'ebhubon',
+        entities: [category,users,sellers,products,sellerUser],
         synchronize: false,
         useNewUrlParser: true,
         logging: true,
@@ -40,11 +43,11 @@ import { sellerUser } from './common/Entity/user_seller.entity';
       }),
     }),
   //   TypeOrmModule.forRoot({
-  //   name:'ebhuvon',
+  //   name:'ebhubon',
   //   type: 'mongodb',
   //   host: 'localhost',
   //   port: 27017,
-  //   database: 'ebhuvon',
+  //   database: 'ebhubon',
   //   entities: [proCategory,UserInfo,SellerInfo,prodetails],
   //   synchronize: false,
   //   useNewUrlParser: true,
@@ -91,14 +94,14 @@ import { sellerUser } from './common/Entity/user_seller.entity';
   //   //autoLoadEntities: true,
   //   useUnifiedTopology: true,
   // }),
-  TypeOrmModule.forFeature([proCategory ], 'ebhuvon'),
-  TypeOrmModule.forFeature([prodetails ], 'ebhuvon'),
-  TypeOrmModule.forFeature([UserInfo ], 'ebhuvon'),
-  TypeOrmModule.forFeature([SellerInfo ], 'ebhuvon'),
-  TypeOrmModule.forFeature([sellerUser],'ebhuvon'),
-  CategoryModule, ProductsModule, UsersModule,AuthModule, SellersModule],
-  controllers: [AppController, CategoryController, ProductsController, UsersController, SellersController],
-  providers: [AppService, CategoryService, ProductsService, UsersService,AuthModule, SellersService],
+  TypeOrmModule.forFeature([category ], 'ebhubon'),
+  TypeOrmModule.forFeature([products ], 'ebhubon'),
+  TypeOrmModule.forFeature([users ], 'ebhubon'),
+  TypeOrmModule.forFeature([sellers ], 'ebhubon'),
+  TypeOrmModule.forFeature([sellerUser],'ebhubon'),
+  CategoryModule, ProductsModule, UsersModule,AuthModule, SellersModule, MediaModule],
+  controllers: [AppController, CategoryController, ProductsController, UsersController, SellersController, MediaController],
+  providers: [AppService, CategoryService, ProductsService, UsersService,AuthModule, SellersService, MediaService],
   exports:[TypeOrmModule]
 })
 export class AppModule {

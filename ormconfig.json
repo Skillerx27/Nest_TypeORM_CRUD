@@ -1,9 +1,9 @@
 {
-  "name":"ebhuvon",
+  "name":"ebhubon",
     "type": "mongodb",
     "host": "localhost",
     "port": 27017,
-    "database": "ebhuvon",
+    "database": "ebhubon",
     "synchronize": false,
     "useNewUrlParser": true,
     "logging": true,

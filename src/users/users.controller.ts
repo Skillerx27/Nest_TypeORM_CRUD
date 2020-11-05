@@ -1,7 +1,7 @@
 import { Body, Controller, Post,Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth/auth.service';
 import { LocalAuthGuard } from './auth/local-auth.guard';
-import { UserInfo } from './userdata/userdetails.entity';
+import { users } from './userdata/userdetails.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -11,7 +11,7 @@ export class UsersController {
 
 
     @Post('registration')
-    createfirst(@Body() user: UserInfo) {
+    createfirst(@Body() user: users) {
         console.log("clalled mysql post")
         return this.userInfoService.create(user);
     }

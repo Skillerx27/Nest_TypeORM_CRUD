@@ -3,7 +3,7 @@ import { Body, Controller, Post, UseGuards ,Request, Get, Param, Put} from '@nes
 import { AuthService } from 'src/users/auth/auth.service';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/users/auth/local-auth.guard';
-import { SellerInfo } from './sellerdata/sellerdetails.entity';
+import { sellers } from './sellerdata/sellerdetails.entity';
 import { SellerInfoInter } from './sellerdata/sellerinter.interface';
 import { SellersService } from './sellers.service';
 
@@ -20,7 +20,7 @@ export class SellersController {
     }
 
     @Get('all')
-    find(): Promise<SellerInfo[]> {
+    find(): Promise<sellers[]> {
         return this.sellerInfoService.findAll();
     }
 

@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe,Request } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { proCategory } from './categorydata/procategory.entity';
+import { category } from './categorydata/procategory.entity';
 import { categoryInterface } from './categorydata/procategoryinter.interface';
 import { ObjectID } from 'typeorm'
-import { SellerInfo } from 'src/sellers/sellerdata/sellerdetails.entity';
+import { sellers } from 'src/sellers/sellerdata/sellerdetails.entity';
 import { categoryvalidator } from './categorydata/validator.category';
 import { InjectRepository } from '@nestjs/typeorm';
 @Controller('category')
@@ -17,8 +17,16 @@ export class CategoryController {
         return this.categoryService.findAll();
     }
 
+
+    @Get('allchild')
+    getallChild(): Promise<categoryInterface> {
+        return this.categoryService.getallChild();
+    }
+
+
+
     @Get('specific')
-    findspecific(@Param() params): Promise<proCategory> {
+    findspecific(@Param() params): Promise<category> {
         return this.categoryService.findbyid(params.id);
     }
 
@@ -31,13 +39,13 @@ export class CategoryController {
 
     @Post('create')
     @UsePipes(new ValidationPipe())
-    create(@Body() user: proCategory ):Promise<proCategory> {
+    create(@Body() user: category ):Promise<category> {
         console.log("clalled mysql post")
         return this.categoryService.create(user);
     }
 
     @Get('root')
-    findbyroot(): Promise<proCategory> {
+    findbyroot(): Promise<category> {
         return this.categoryService.findbyroot();
     }
 

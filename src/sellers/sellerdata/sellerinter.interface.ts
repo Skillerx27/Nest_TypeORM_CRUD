@@ -1,4 +1,4 @@
-import { UserInfo } from "src/users/userdata/userdetails.entity";
+import { users } from "src/users/userdata/userdetails.entity";
 import { ObjectID } from "typeorm";
 
 export interface SellerInfoInter {
@@ -17,5 +17,7 @@ export interface SellerInfoInter {
     CreatedAt?: string;
     UpdatedBy?: string;
     UpdatedAt?: string;
-    user:UserInfo
+    
+    user:users
+    user_id:ObjectID;
 }
