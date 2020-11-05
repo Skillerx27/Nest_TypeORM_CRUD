@@ -3,6 +3,7 @@ import { sellerUser } from 'src/common/Entity/user_seller.entity';
 import { users } from 'src/users/userdata/userdetails.entity';
 import { StringDecoder } from 'string_decoder';
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToOne, JoinColumn } from 'typeorm';
+import {  } from 'class-validator'
 
 @Entity()
 export class sellers  {
@@ -12,11 +13,11 @@ export class sellers  {
   @Column()
   shopName: string;
 
-  @Column()
-  username: string;
+  // @Column()
+  // username: string;
 
-  @Column()
-  password: string;
+  // @Column()
+  // password: string;
 
   @Column()
   cellNo: string;
@@ -35,7 +36,7 @@ export class sellers  {
 
   @Column()
   nationality: string;
-
+  
   @Column()
   role: string;
 
@@ -51,8 +52,8 @@ export class sellers  {
   @Column()
   UpdatedAt: string;
 
-  @Column()
-  status: string;
+  @Column({ default: false })
+  status: boolean;
 
   @OneToOne(type=>users)
   @JoinColumn()

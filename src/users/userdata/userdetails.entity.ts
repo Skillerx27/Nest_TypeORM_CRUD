@@ -37,6 +37,9 @@ export class users {
   role: string;
 
   @Column()
+  status: boolean;
+
+  @Column()
   CreatedBy: string;
 
   @Column()

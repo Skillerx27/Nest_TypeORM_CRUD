@@ -19,11 +19,29 @@ export class products {
     @Column()
     category: string;
 
-    @Column()
-    imgURL: string;
+    @ObjectIdColumn()
+    categoryId: ObjectID;
+
+    @ObjectIdColumn()
+    categories_id: ObjectID;
 
     @Column()
     price: string;
+
+    @Column()
+    status: string;
+
+    @Column()
+    quantity: string;
+
+    @Column()
+    icon: string;
+
+    @Column()
+    image: string;
+
+    @Column()
+    banner: string;
 
     @Column()
     createdAt: string;

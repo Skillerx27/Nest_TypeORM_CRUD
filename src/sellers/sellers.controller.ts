@@ -15,7 +15,6 @@ export class SellersController {
 
     @Post('registration')
     createfirst(@Body() user: SellerInfoInter) {
-        console.log("clalled mysql post")
         return this.sellerInfoService.create(user);
     }
 
@@ -29,6 +28,25 @@ export class SellersController {
     @Post('auth/login')
     async login(@Request() req) {
       return this.authService.login(req.user);
+    }
+
+
+    // @Put('access/:id')
+    // permission(@Param('id') id,@Body() user: sellers) {
+    //     console.log("UPDATE CALLED=========",user)
+    //     return this.sellerInfoService.permission(id, user);
+    // }
+
+
+    // @Post('access')
+    // permission(@Body() body) {
+    //     return this.sellerInfoService.permission(body.id);
+    // }
+
+    
+    @Post('access')
+    permission(@Body() params) {
+        return this.sellerInfoService.permission(params.id,params);
     }
 
     // @UseGuards(JwtAuthGuard)

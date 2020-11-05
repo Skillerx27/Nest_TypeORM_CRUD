@@ -4,7 +4,7 @@ import { from } from 'rxjs';
 import { sellerUser } from 'src/common/Entity/user_seller.entity';
 
 import { users } from 'src/users/userdata/userdetails.entity';
-import { Repository } from 'typeorm';
+import { ObjectID, Repository } from 'typeorm';
 import { sellers } from './sellerdata/sellerdetails.entity';
 import { SellerInfoInter } from './sellerdata/sellerinter.interface'
 
@@ -17,22 +17,30 @@ export class SellersService {
         @InjectRepository(users,'ebhubon') private readonly userInfoRepository: Repository<users>){}
 
 
-        async find(username: string): Promise<sellers> {
-            const name = await this.sellerinfoRepository.findOne({username:username});
+        async permission(_id: ObjectID,data: sellers) {
+            console.log("ID====================",_id);
+            await this.sellerinfoRepository.update({_id}, data); 
+            return await this.sellerinfoRepository.findOne(_id)
+            //return this.sellerinfoRepository.update({_id}, data);
+          }
+
+        async find(username: string): Promise<users> {
+            const name = await this.userInfoRepository.findOne({username:username});
             
             if(name!=null)
             {
                 console.log("HERE1111111111111111")
                 console.log(name)
-                return await this.sellerinfoRepository.findOne({username:username});
+                return await this.userInfoRepository.findOne({username:username});
             }
-            const email = await this.sellerinfoRepository.findOne({mail:username});
+            const email = await this.userInfoRepository.findOne({mail:username});
             if(email!=null)
             {
                 console.log("HERE2222222222222")
                 console.log(name)
-                return await this.sellerinfoRepository.findOne({mail:username});
+                return await this.userInfoRepository.findOne({mail:username});
             }
+
             
             
         }
@@ -60,10 +68,15 @@ export class SellersService {
             user.username=data.username;
             user.password=data.password;
             user.mail=data.mail;
-            
+            user.status=false
             await this.userInfoRepository.save(user);
             //data.user=user;
+
+            delete data.username;
+            delete data.password;
+            data.role = "sellerAdmin";
             data.user_id = user._id;
+            data.status = false;
             await this.sellerinfoRepository.save(data);
 
             //creating table for storing sellers and users primary_key

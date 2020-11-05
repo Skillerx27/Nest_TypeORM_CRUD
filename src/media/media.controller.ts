@@ -4,10 +4,11 @@ import { readdir, readdirSync, unlinkSync } from 'fs';
 import { join, parse } from 'path';
 import {diskStorage} from 'multer'
 import { MediaService } from './media.service';
+import { baseUrl }  from '../common/utils/config'
 
 
 const directoryPath = join(process.cwd(), '/upload')
-const path='http://localhost:3000/media/image/';
+const path=baseUrl+'/media/image/';
 
 @Controller('media')
 export class MediaController {
@@ -17,6 +18,7 @@ export class MediaController {
 
     @Get('media')
     async findall(@Res() res){
+        console.log("PATH================",baseUrl)
         //console.log("directoryPath=============",directoryPath);
         // console.log("findAll api Query: pageSize : ",pageSize," and current : ",current);
         readdir(directoryPath, function (err, files) {

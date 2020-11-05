@@ -14,6 +14,8 @@ export class CategoryService {
     constructor( @InjectRepository(category,'ebhubon') private readonly categoryRepository: Repository<category>,
       ) {}
 
+
+    //find all the roots
     async findAll(): Promise<any> {
         console.log("find all");
         let data=await this.categoryRepository.find({
@@ -41,7 +43,7 @@ export class CategoryService {
 
 
 
-
+      //find the entire sub-tree 
       async getChild(username: string): Promise<any>  {
         console.log(username);
         let data= await this.categoryRepository.findOne({
@@ -66,7 +68,7 @@ export class CategoryService {
         
       }
 
-
+      //find entire category tree
       async getallChild(): Promise<any> {
         let tree = []
         let subtree = []
@@ -135,7 +137,44 @@ export class CategoryService {
       
 
 
-      findbyid(username: category): Promise<category> {
+      async createCategory(username: string, c_details: category): Promise<category> {
+        console.log(username);
+        let data= await this.categoryRepository.findOne({
+          where:{title:username},
+        })
+       
+        console.log("Data==============", data);
+        
+        let pID = data.parentId;
+
+        console.log(pID);
+        if(pID==null)
+        {
+          
+          // var x = JSON.stringify(data)
+          // console.log("JSON AS STRING===========",typeof x)
+          // console.log("JSON AS STRING===========",x)
+          // var x = JSON.parse(x)
+          // console.log("JSON AS STRING===========",typeof x)
+          // console.log("JSON AS STRING===========",Object(x.parentId))
+          const categoryx = await  this.categoryRepository.save(c_details);
+          return categoryx;
+        }
+        else
+        {
+          
+
+
+          const categoryx = await  this.categoryRepository.save(c_details);
+        }
+        // const sub_category=await this.categoryRepository.find({
+        //   where:{parentId:pID},
+        // })
+
+        console.log("SUB CATEGORYS=============",c_details);
+        return c_details;
+        //await this.categoryRepository.delete(name);
+
         return this.categoryRepository.findOne(username);
       }
 
@@ -164,12 +203,12 @@ export class CategoryService {
         console.log('parent category=================',data.parentCategory);
         
         if(data.parentId){
-          var pCategory= await this.categoryRepository.findOne(data.parentId);
-          console.log("PARENT DATA==================",pCategory);
+          // var pCategory= await this.categoryRepository.findOne(data.parentId);
+          // console.log("PARENT DATA==================",pCategory);
          
 
           let user = new category();
-          user.parentId=pCategory._id;
+          user.parentId=data.parentId;
           user.slug=data.slug;
           user.status=data.status;
           user.title=data.title;

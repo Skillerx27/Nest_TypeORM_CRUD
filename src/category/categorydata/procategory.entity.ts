@@ -21,6 +21,7 @@ export class category {
     @Column()
     title : string;
 
+    
     @Column()
     slug: string;
 

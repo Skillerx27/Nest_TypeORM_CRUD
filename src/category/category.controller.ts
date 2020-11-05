@@ -11,23 +11,23 @@ export class CategoryController {
     constructor(private readonly categoryService: CategoryService) {}
 
 
-
+    //find all the roots 
     @Get('all')
     find(): Promise<categoryInterface> {
         return this.categoryService.findAll();
     }
 
-
+    //find entire category tree
     @Get('allchild')
     getallChild(): Promise<categoryInterface> {
         return this.categoryService.getallChild();
     }
 
 
-
+    //find the subdomain category
     @Get('specific')
-    findspecific(@Param() params): Promise<category> {
-        return this.categoryService.findbyid(params.id);
+    createCategory(@Param() params,@Body() user: category) {
+        return this.categoryService.createCategory(params.id,user);
     }
 
     

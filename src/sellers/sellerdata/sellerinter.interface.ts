@@ -17,7 +17,7 @@ export interface SellerInfoInter {
     CreatedAt?: string;
     UpdatedBy?: string;
     UpdatedAt?: string;
-    
+    status?: boolean;
     user:users
     user_id:ObjectID;
 }
