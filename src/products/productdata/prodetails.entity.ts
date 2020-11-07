@@ -1,5 +1,6 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
+import { category } from 'src/category/categorydata/procategory.entity';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 
 @Entity()
 export class products {
@@ -16,14 +17,18 @@ export class products {
     @Column()
     title: string;
 
-    @Column()
-    category: string;
+    // @Column()
+    // category: string;
 
-    @ObjectIdColumn()
-    categoryId: ObjectID;
+    @OneToMany(type=>category,category=>category._id)
+    @JoinTable()
+    category: category[];
 
     @ObjectIdColumn()
     categories_id: ObjectID;
+
+    @ObjectIdColumn()
+    categoryId: ObjectID;
 
     @Column()
     price: string;

@@ -23,4 +23,11 @@ export class UsersController {
       console.log("auth/login========", req.user);
       return this.authService.login(req.user);
     }
+
+
+    @Post('delete')
+    delete(@Body() body) {
+        console.log(body)
+        return this.userInfoService.delete(body.id);
+    }
 }

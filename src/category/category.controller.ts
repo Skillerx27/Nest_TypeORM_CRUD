@@ -18,10 +18,11 @@ export class CategoryController {
     }
 
     //find entire category tree
-    @Get('allchild')
+    @Get('allChild')
     getallChild(): Promise<categoryInterface> {
         return this.categoryService.getallChild();
     }
+
 
 
     //find the subdomain category
@@ -37,6 +38,8 @@ export class CategoryController {
     }
 
 
+
+    
     @Post('create')
     @UsePipes(new ValidationPipe())
     create(@Body() user: category ):Promise<category> {
@@ -44,10 +47,31 @@ export class CategoryController {
         return this.categoryService.create(user);
     }
 
+
+
+
     @Get('root')
     findbyroot(): Promise<category> {
         return this.categoryService.findbyroot();
     }
 
+
+    @Post('createCategory')
+    createcategory(@Body() user: categoryInterface):Promise<categoryInterface> {
+        console.log("clalled mysql post")
+        return this.categoryService.createcategory(user);
+    }
+
+    
+    @Get('showParentCategory')
+    showSubCategory(): Promise<categoryInterface> {
+        return this.categoryService.showSubCategory();
+    }
+    
+
+    @Post('delete')
+    delete(@Body() body) {
+        return this.categoryService.delete(body.id);
+    }
 
 }

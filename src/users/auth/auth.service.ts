@@ -15,7 +15,7 @@ export class AuthService {
   async validateUser(username: string, pass: string): Promise<any> {
     console.log("auth.service called")
 
-    const user = await this.usersService.find(username);
+    const user = await this.usersService.findUser(username);
     
     console.log("user details=====",user)
     if (user && user.password === pass)  {
@@ -27,7 +27,7 @@ export class AuthService {
     }
 
     
-    const nuser = await this.sellerService.find(username);
+    const nuser = await this.usersService.findSeller(username);
     if (nuser && nuser.password === pass)  {
       console.log("auth service recalled for checking")
     const result = nuser;
@@ -39,13 +39,18 @@ export class AuthService {
   }
 
   async login(user: any) {
-    const payload = { mail: user.mail, username: user.username };
+    const payload = { mail: user.mail, username: user.username , _id: user._id  };
     console.log("payload from login")
     // console.log(user.useremail)
     // console.log(user.username)
      console.log(payload)
     // console.log(user.password)
+    if(user.status==="error") 
+    {       
+      return {status: "error"}
+    }
     return {
+      status: "ok",
       access_token: this.jwtService.sign(payload),
     };
   }

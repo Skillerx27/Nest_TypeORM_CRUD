@@ -21,7 +21,9 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
     
     
     if (!user) {
-      throw new NotFoundException();
+
+      return {status: "error"};
+      //throw new NotFoundException();
     }
     console.log("local.strategy called is returing valid user")
     return user;

@@ -8,7 +8,30 @@ import { UserInfoInter } from './userdata/userinter.interface';
 export class UsersService {
     constructor(@InjectRepository(users,'ebhubon')private readonly userInfoRepository: Repository<users>){}
 
-    async find(username: string): Promise<users> {
+    async findUser(username: string): Promise<users> {
+        console.log("FINDING DETAILS",username)
+        const name = await this.userInfoRepository.findOne({username:username});
+        console.log(name)
+        if(name!=null)
+        {
+            console.log("HERE1111111111111111")
+            console.log(name)
+            return await this.userInfoRepository.findOne({username:username});
+        }
+        const email = await this.userInfoRepository.findOne({mail:username});
+        if(email!=null)
+        {
+            console.log("HERE2222222222222")
+            console.log(name)
+            return await this.userInfoRepository.findOne({mail:username});
+        }
+        
+        
+    }
+
+
+
+    async findSeller(username: string): Promise<users> {
         console.log("FINDING DETAILS",username)
         const name = await this.userInfoRepository.findOne({username:username});
         console.log(name)
@@ -40,5 +63,7 @@ export class UsersService {
         //return user;
     }
 
-    
+    async delete(id: string) {
+        await this.userInfoRepository.delete(id);
+      }
 }

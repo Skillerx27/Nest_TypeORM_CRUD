@@ -1,7 +1,9 @@
 
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToOne, OneToMany, Tree, JoinTable, JoinColumn, TreeChildren, TreeParent, IsNull, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToOne, OneToMany, Tree, JoinTable, JoinColumn, TreeChildren, TreeParent, IsNull, BaseEntity, ManyToMany } from 'typeorm';
 
 import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, IsNotEmpty, IsDefined, isInt, min} from "class-validator";
+import { type } from 'os';
+import { products } from 'src/products/productdata/prodetails.entity';
  
 
 
@@ -26,8 +28,8 @@ export class category {
     slug: string;
 
     
-    @Column()
-    id: string;
+    // @Column()
+    // id: string;
 
     @Column()
     order: string;
@@ -35,6 +37,7 @@ export class category {
     @Column()
     status: string;
 
+    
 
     @Column()
     banner: string;
@@ -46,6 +49,7 @@ export class category {
     image: string;
 
     @Column()
+
     createdAt: string;
 
     @Column()
@@ -69,5 +73,13 @@ export class category {
 
     @OneToMany(type => category, category => category.parentCategory)
     childCategories: category[];
+
+
+
+
+
+    @ManyToOne(type=>products, products=>products._id)
+    //@JoinTable()
+    products:products;
     
 }

@@ -2,7 +2,7 @@ import { type, userInfo } from 'os';
 import { sellerUser } from 'src/common/Entity/user_seller.entity';
 import { users } from 'src/users/userdata/userdetails.entity';
 import { StringDecoder } from 'string_decoder';
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToOne, JoinColumn, OneToMany } from 'typeorm';
 import {  } from 'class-validator'
 
 @Entity()
@@ -52,15 +52,19 @@ export class sellers  {
   @Column()
   UpdatedAt: string;
 
-  @Column({ default: false })
-  status: boolean;
+  @Column()
+  status: string;
 
-  @OneToOne(type=>users)
-  @JoinColumn()
-  user:users
+  // @OneToOne(type=>users)
+  // @JoinColumn()
+  // user:users
 
-  @OneToOne(type=>sellerUser)
-  @JoinColumn()
-  sellerUser:sellerUser
+  // @OneToMany(type=>users)
+  // @JoinColumn()
+  // user:users
+
+  // @OneToOne(type=>sellerUser)
+  // @JoinColumn()
+  // sellerUser:sellerUser
 
 }

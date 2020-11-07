@@ -9,7 +9,7 @@ export class ProductsController {
 
 
     @Get('all')
-    find(): Promise<products[]> {
+    find(): Promise<any> {
         return this.productService.findAll();
     }
 
@@ -25,7 +25,11 @@ export class ProductsController {
         return this.productService.create(user);
     }
 
-
+    @Post('delete')
+    delete(@Body() body) {
+        console.log(body)
+        return this.productService.delete(body.id);
+    }
 
 
 

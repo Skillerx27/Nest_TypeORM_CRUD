@@ -9,9 +9,11 @@ export interface categoryInterface {
     slug: string;
     order: string;
     status: string;
+    parentCategories:string;
     banner: string;
     icon: string;
     image: string;
+    parentId: ObjectID;
     createdAt: string;
     createdBy: string;
     updatedAt: string;

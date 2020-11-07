@@ -1,5 +1,7 @@
+import { sellerUser } from 'src/common/Entity/user_seller.entity';
+import { sellers } from 'src/sellers/sellerdata/sellerdetails.entity';
 import { StringDecoder } from 'string_decoder';
-import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToMany, OneToMany } from 'typeorm';
 
 @Entity()
 export class users {
@@ -50,4 +52,8 @@ export class users {
 
   @Column()
   UpdatedAt: string;
+
+
+  @OneToMany(() => sellerUser, sellerUser => sellerUser._id)
+  public userId!: sellerUser[];
 }

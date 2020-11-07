@@ -13,11 +13,19 @@ export class ProductsService {
 
 
     async findAll(): Promise<products[]> {
-        return this.productRepository.find();
+
+        let allProducts = await this.productRepository.find();
+        //allProducts.proCategory;
+        console.log(allProducts);
+        return allProducts; 
       }
 
       findbyid(username: string): Promise<products> {
         return this.productRepository.findOne(username);
+      }
+
+      async delete(id: string) {
+        await this.productRepository.delete(id);
       }
 
       async create(data: products):Promise<products> {
@@ -30,8 +38,11 @@ export class ProductsService {
         console.log("LAST IDX VALUE==========", lastidx);
 
         let datavalue= await this.categoryRepository.findOne({
-          where:{title:lastidx},})
-        data.categoryId = datavalue._id;
+          where:{title:lastidx}})
+console.log('category:',datavalue);
+
+        // data.categoryId = datavalue._id;
+        data.category.push(datavalue)
         return  this.productRepository.save(data);
         // await this.usersmRepository.save(data);
         // return user;
