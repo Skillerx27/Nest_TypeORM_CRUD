@@ -9,8 +9,8 @@ export interface UserInfoInter {
     gender : string;
     nationality ?: string;
     role : string;
-    CreatedBy?: string;
-    CreatedAt?: string;
+    CreatedBy: string;
+    CreatedAt: string;
     UpdatedBy?: string;
     UpdatedAt?: string;
 }

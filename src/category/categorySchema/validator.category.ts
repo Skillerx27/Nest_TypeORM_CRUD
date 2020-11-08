@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsDefined } from "class-validator";
 import { ObjectID } from "typeorm";
-import { category } from "./procategory.entity";
+import { Category } from "./category.entity";
 
 export class categoryvalidator {
     
@@ -22,6 +22,6 @@ export class categoryvalidator {
     
     @IsDefined()
     parentId:ObjectID;
-    parentCategory:category;
+    parentCategory:Category;
 
 }

@@ -1,5 +1,5 @@
 import { ObjectID } from "typeorm";
-import { category } from "./procategory.entity";
+import { Category } from "./category.entity";
 
 export interface categoryInterface {
     

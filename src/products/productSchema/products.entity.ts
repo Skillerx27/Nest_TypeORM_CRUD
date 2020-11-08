@@ -1,9 +1,9 @@
 
-import { category } from 'src/category/categorydata/procategory.entity';
+import { IsNotEmpty } from 'class-validator';
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 
 @Entity()
-export class products {
+export class Product {
 
     @ObjectIdColumn()
     _id: ObjectID;
@@ -11,31 +11,33 @@ export class products {
     @Column()
     id: string;
 
+    @IsNotEmpty()
     @Column()
     name : string;
 
+    @IsNotEmpty()
     @Column()
     title: string;
 
-    // @Column()
-    // category: string;
+    @Column()
+    category: string;
 
-    @OneToMany(type=>category,category=>category._id)
-    @JoinTable()
-    category: category[];
 
-    @ObjectIdColumn()
-    categories_id: ObjectID;
+    // @ObjectIdColumn()
+    // categories_id: ObjectID;
 
     @ObjectIdColumn()
     categoryId: ObjectID;
 
+    @IsNotEmpty()
     @Column()
     price: string;
 
+    @IsNotEmpty()
     @Column()
     status: string;
 
+    @IsNotEmpty()
     @Column()
     quantity: string;
 
@@ -61,6 +63,8 @@ export class products {
     updatedBy: string;
 
     
-
+    // @OneToMany(type=>category,category=>category._id)
+    // @JoinTable()
+    // category: category[];
     
 }

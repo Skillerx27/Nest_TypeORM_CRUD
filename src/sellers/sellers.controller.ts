@@ -1,29 +1,31 @@
-import { Body, Controller, Post, UseGuards ,Request, Get, Param, Put} from '@nestjs/common';
+import { Body, Controller, Post, UseGuards ,Request, Get, Param, Put, UsePipes, ValidationPipe} from '@nestjs/common';
 import { config } from 'process';
 
 import { AuthService } from 'src/users/auth/auth.service';
 import { JwtAuthGuard } from 'src/users/auth/jwt-auth.guard';
 import { LocalAuthGuard } from 'src/users/auth/local-auth.guard';
-import { sellers } from './sellerdata/sellerdetails.entity';
-import { SellerInfoInter } from './sellerdata/sellerinter.interface';
+import { Seller } from './sellerSchema/seller.entity';
+import { SellerInfoInter } from './sellerSchema/seller.interface';
 import { SellersService } from './sellers.service';
 //import * as jwt_decode from 'jwt-decode'
 import jwt_decode from 'jwt-decode';
-import { sellerinterface } from './sellerdata/showall.interface';
+import { Res } from '@nestjs/common/decorators/http/route-params.decorator';
 
-@Controller('sellers')
+
+@Controller('seller')
 export class SellersController {
 
 
     constructor(private readonly sellerInfoService: SellersService,private authService: AuthService) {}
 
+    @UsePipes(new ValidationPipe())
     @Post('registration')
-    createfirst(@Body() user: SellerInfoInter): Promise<sellers> {
+    createfirst(@Body() user: SellerInfoInter): Promise<Seller> {
         return this.sellerInfoService.create(user);
     }
 
     @Get('all')
-    find(): Promise<sellerinterface> {
+    find(): Promise<SellerInfoInter> {
         return this.sellerInfoService.findAll();
     }
 
@@ -34,11 +36,12 @@ export class SellersController {
     }
 
     
-    @UseGuards(LocalAuthGuard)
-    @Post('auth/login')
-    async login(@Request() req) {
-      return this.authService.login(req.user);
-    }
+    // @UseGuards(LocalAuthGuard)
+    // @Post('auth/login')
+    // async login(@Request() req) {
+    //     console.log("LOGIN CALLLL=============",req.headers)
+    //   return this.authService.login(req.user);
+    // }
 
 
 
@@ -50,18 +53,24 @@ export class SellersController {
     // }
 
 
-    @Get('decode/:id')
-    authDecode(@Param('id') req){ 
-    console.log("DECODE====================", req)
-    
-    // const header = req.headers.authorization
-    // const head_split = header.substr(7,header.length-7)
-     const decoded = jwt_decode(req);
-     //console.log(decoded)
-     return this.sellerInfoService.authDecode(decoded);
+//     @Get('decode')
+//     authDecode(@Param('id') req){ 
+//      console.log("DECODE====================", req)
 
-   }
 
+
+//     //  const header = req.body.headers.authorization
+//     //  console.log("AUTH TOKEN================",header)
+//     //  const head_split = header.substr(7,header.length-7)
+//     //  const decoded = jwt_decode(req);
+//     //  console.log(decoded)
+//     this.sellerInfoService.authDecode(decoded);
+//      return 
+
+//    }
+
+
+   
     // @Put('access/:id')
     // permission(@Param('id') id,@Body() user: sellers) {
     //     console.log("UPDATE CALLED=========",user)
@@ -96,17 +105,29 @@ export class SellersController {
     }
 
 
+    
     @Post('update')
     update(@Body() params) {
-        console.log(params)
-        
-
+        console.log("Seller CAlled===============",params)
         // console.log("asasdasdasdasd",params[0])
         // console.log(x.length)
-        
-       
         return this.sellerInfoService.update(params);
     }
 
+
+    @Get('currentSeller')
+    sellerDetail(@Request() req) {
+        console.log("current Seller Called===============")
+        const header = req.headers.authorization
+        const decoded = jwt_decode(header);
+        return this.sellerInfoService.sellerDetail(decoded);
+    }
+
+
+
+//     @Get('logout')
+//     logout(@Request() req, @Res() res: Response): void {
+//     req.logout();
+//   }
 
 }

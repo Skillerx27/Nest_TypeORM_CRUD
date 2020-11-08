@@ -1,14 +1,17 @@
 
-import { sellers } from 'src/sellers/sellerdata/sellerdetails.entity';
-import { SellersController } from 'src/sellers/sellers.controller';
-import { users } from 'src/users/userdata/userdetails.entity';
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, OneToMany, ManyToOne } from 'typeorm';
 
-@Entity()
-export class sellerUser{
+@Entity({'name':"sellerUsers"})
+export class SellerUser{
 
     @ObjectIdColumn()
     _id: ObjectID;
+
+    @Column()
+    userId: string;
+
+    @Column()
+    sellerId: string;
     
     @Column()
     createdAt: string;
@@ -30,9 +33,9 @@ export class sellerUser{
     // user : users
 
 
-    @ManyToOne(() => sellers, sellers => sellers._id)
-    public seller!: sellers;
+    // @ManyToOne(() => sellers, sellers => sellers._id)
+    // public seller!: sellers;
 
-    @ManyToOne(() => users, user => user._id)
-    public user!: users;
+    // @ManyToOne(() => users, user => user._id)
+    // public user!: users;
 }

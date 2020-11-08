@@ -2,13 +2,12 @@
 import { Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ObjectIdColumn, ObjectID, ManyToOne, OneToMany, Tree, JoinTable, JoinColumn, TreeChildren, TreeParent, IsNull, BaseEntity, ManyToMany } from 'typeorm';
 
 import {validate, validateOrReject, Contains, IsInt, Length, IsEmail, IsFQDN, IsDate, Min, Max, IsNotEmpty, IsDefined, isInt, min} from "class-validator";
-import { type } from 'os';
-import { products } from 'src/products/productdata/prodetails.entity';
+
  
 
 
 @Entity()
-export class category {
+export class Category {
     // @PrimaryGeneratedColumn()
     // id: number
     
@@ -19,26 +18,25 @@ export class category {
     _id: ObjectID;
 
 
-    @IsDefined()
+    @IsNotEmpty()
     @Column()
     title : string;
-
-    
+    @IsNotEmpty()
     @Column()
     slug: string;
 
     
     // @Column()
     // id: string;
-
+    @IsNotEmpty()
     @Column()
     order: string;
-
+    @IsNotEmpty()
     @Column()
     status: string;
 
     
-
+    
     @Column()
     banner: string;
 
@@ -65,21 +63,23 @@ export class category {
     parentId: ObjectID;
 
     @Column()
-    children: category[];
+    children: Category[];
 
 
-    @ManyToOne(type => category, category => category.childCategories)
-    parentCategory: category;
+    @ManyToOne(type => Category, category => category.childCategories)
+    parentCategory: Category;
 
-    @OneToMany(type => category, category => category.parentCategory)
-    childCategories: category[];
+    @OneToMany(type => Category, category => category.parentCategory)
+    childCategories: Category[];
+    
+    @Column()
+    Category: string;
 
 
 
 
-
-    @ManyToOne(type=>products, products=>products._id)
-    //@JoinTable()
-    products:products;
+    // @ManyToOne(type=>products, products=>products._id)
+    // //@JoinTable()
+    // products:products;
     
 }

@@ -1,17 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { category } from './categorydata/procategory.entity';
+import { Category } from './categorySchema/category.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository,TreeRepository,getRepository, getMongoRepository ,ObjectID, createConnection, getConnectionManager} from 'typeorm';
 import { Mongoose } from 'mongoose'
-import { categoryInterface } from './categorydata/procategoryinter.interface';
-import { sellers } from 'src/sellers/sellerdata/sellerdetails.entity';
+import { categoryInterface } from './categorySchema/category.interface';
+import { Seller } from 'src/sellers/sellerSchema/seller.entity';
 import {getConnection} from "typeorm";
 import { userInfo } from 'os';
 import { LOADIPHLPAPI } from 'dns';
 
 @Injectable()
 export class CategoryService {
-    constructor( @InjectRepository(category,'ebhubon') private readonly categoryRepository: Repository<category>,
+    constructor( @InjectRepository(Category,'ebhubon') private readonly categoryRepository: Repository<Category>,
       ) {}
 
       async delete(id: string) {
@@ -36,7 +36,7 @@ export class CategoryService {
 
 
         return data;
-        const user = await getMongoRepository(category,'ebhubon')
+        const user = await getMongoRepository(Category,'ebhubon')
         .createQueryBuilder("user")
         .where("user.id = :id", { id: null })
         .getOne();
@@ -140,7 +140,7 @@ export class CategoryService {
       
 
 
-      async createCategory(username: string, c_details: category): Promise<category> {
+      async createCategory(username: string, c_details: Category): Promise<Category> {
         console.log(username);
         let data= await this.categoryRepository.findOne({
           where:{title:username},
@@ -178,7 +178,7 @@ export class CategoryService {
         return this.categoryRepository.findOne(username);
       }
 
-      async findbyroot(): Promise<category> {
+      async findbyroot(): Promise<Category> {
         console.log("FINDROOT FUNCTION========")
         
         //console.log(user);
@@ -192,22 +192,22 @@ export class CategoryService {
       }
     
 
-      async create(data: category):Promise<category> {
+      async create(data: Category):Promise<Category> {
         //const user = this.usersRepository.create(data);
         // console.log("clalled mysql add method called")
         console.log(data)
         
-        console.log('parent id=============: ',data.parentId);
+        // console.log('parent id=============: ',data.parentId);
         
-        console.log('parent id type=============: ',typeof (data.parentId));
-        console.log('parent category=================',data.parentCategory);
+        // console.log('parent id type=============: ',typeof (data.parentId));
+        // console.log('parent category=================',data.parentCategory);
         
         if(data.parentId){
           // var pCategory= await this.categoryRepository.findOne(data.parentId);
           // console.log("PARENT DATA==================",pCategory);
          
 
-          let user = new category();
+          let user = new Category();
           user.parentId=data.parentId;
           user.slug=data.slug;
           user.status=data.status;
@@ -272,7 +272,7 @@ export class CategoryService {
             // console.log("PARENT DATA==================",pCategory);
            
   
-            let user = new category();
+            let user = new Category();
             user.parentId = datavalue.parentId;
             user.slug = datavalue.slug;
             user.status = datavalue.status;
@@ -349,6 +349,47 @@ export class CategoryService {
         // .getOne();
         // return user;
         //return this.categoryRepository.findOne({parentId: null});
+      }
+
+
+
+      //update
+      async update(data: any) {
+
+        console.log("status", data["status"]);
+        
+        
+        for (let key in data) {
+            if (data.hasOwnProperty(key) && key!="status") {
+                data[key].status = data["status"];
+                data[key].updatedAt= new Date()
+                
+
+                // let sellerId = new sellers();
+                // sellerId._id =data[key]._id;
+                // sellerId._id = data[key]._id 
+                let _id  = data[key]._id;
+                // tmp = new ObjID(tmp)
+                console.log("_id",_id);
+                delete data[key]._id;
+                // let x = await this.sellerinfoRepository.update({_id}, data[key]); 
+                let x = await this.categoryRepository.findOne(_id); 
+                //delete x.shopName;
+                //delete x.role;
+                delete x.status;
+                //delete x.cellNo;
+                //delete x.mail;
+                console.log("x======",x);
+
+                let xup = await this.categoryRepository.update(x,data[key]); 
+                console.log("Vlaue=================",xup)
+            }
+          }
+          return data;
+        // console.log("ID====================",_id);
+        // await this.sellerinfoRepository.update({_id}, data); 
+        // return await this.sellerinfoRepository.findOne(_id)
+        //return this.sellerinfoRepository.update({_id}, data);
       }
 
 }

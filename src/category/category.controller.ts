@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post, UsePipes, ValidationPipe,Request } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { category } from './categorydata/procategory.entity';
-import { categoryInterface } from './categorydata/procategoryinter.interface';
+import { Category } from './categorySchema/category.entity';
+import { categoryInterface } from './categorySchema/category.interface';
 import { ObjectID } from 'typeorm'
-import { sellers } from 'src/sellers/sellerdata/sellerdetails.entity';
-import { categoryvalidator } from './categorydata/validator.category';
+import { Seller } from 'src/sellers/sellerSchema/seller.entity';
+import { categoryvalidator } from './categorySchema/validator.category';
 import { InjectRepository } from '@nestjs/typeorm';
 @Controller('category')
 export class CategoryController {
@@ -27,7 +27,7 @@ export class CategoryController {
 
     //find the subdomain category
     @Get('specific')
-    createCategory(@Param() params,@Body() user: category) {
+    createCategory(@Param() params,@Body() user: Category) {
         return this.categoryService.createCategory(params.id,user);
     }
 
@@ -42,8 +42,10 @@ export class CategoryController {
     
     @Post('create')
     @UsePipes(new ValidationPipe())
-    create(@Body() user: category ):Promise<category> {
-        console.log("clalled mysql post")
+    create(@Body() user: Category ):Promise<Category> {
+        console.log("category created")
+        console.log("category created=========",user)
+
         return this.categoryService.create(user);
     }
 
@@ -51,7 +53,7 @@ export class CategoryController {
 
 
     @Get('root')
-    findbyroot(): Promise<category> {
+    findbyroot(): Promise<Category> {
         return this.categoryService.findbyroot();
     }
 
@@ -73,5 +75,14 @@ export class CategoryController {
     delete(@Body() body) {
         return this.categoryService.delete(body.id);
     }
+    
+    @Post('update')
+    update(@Body() params) {
+        console.log("Seller CAlled===============",params)
+        // console.log("asasdasdasdasd",params[0])
+        // console.log(x.length)
+        return this.categoryService.update(params);
+    }
+
 
 }
