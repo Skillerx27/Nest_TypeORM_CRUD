@@ -192,26 +192,31 @@ export class CategoryService {
       }
     
 
-      async create(data: Category):Promise<Category> {
+      async create(data: any):Promise<any> {
         //const user = this.usersRepository.create(data);
         // console.log("clalled mysql add method called")
         console.log(data)
-        
+       
         // console.log('parent id=============: ',data.parentId);
         
         // console.log('parent id type=============: ',typeof (data.parentId));
         // console.log('parent category=================',data.parentCategory);
         
-        if(data.parentId){
+        
           // var pCategory= await this.categoryRepository.findOne(data.parentId);
           // console.log("PARENT DATA==================",pCategory);
-         
+          if (data.parentCategories.length){
+          data.parentId = data.parentCategories[data.parentCategories.length-1]
+          // let user = new Category();
+          // user.parentId=data.parentId;
+          // user.slug=data.slug;
+          // user.status=data.status;
+          // user.title=data.title;
+          // user.icon = data.icon;
+          // user.image = data.image;
+          // user.banner = data.banner;
+          // user.order = data.order;
 
-          let user = new Category();
-          user.parentId=data.parentId;
-          user.slug=data.slug;
-          user.status=data.status;
-          user.title=data.title;
           // var x = JSON.stringify(data)
           // console.log("JSON AS STRING===========",typeof x)
           // console.log("JSON AS STRING===========",x)
@@ -220,17 +225,17 @@ export class CategoryService {
           // console.log("JSON AS STRING===========",Object(x.parentId))
 
 
-          const categoryx = await  this.categoryRepository.save(user);
+          const categoryx = await  this.categoryRepository.save(data);
          // data.parentCategory=pCategory;
           // delete data.parentId;
-          return categoryx;
-
+          return data;
         }
+        
         
         
         data.parentId = null
         const new_category = await  this.categoryRepository.save(data);
-
+        return data;
 
         // console.log("CATEGORY CREATED =========",category)
         
@@ -246,61 +251,24 @@ export class CategoryService {
         // }
         
         ///return await this.categoryRepository.findOne(pCategory._id);
-        return new_category;
+        
 
 
       }
 
-      async createcategory(data: categoryInterface):Promise<any> {
+      async createcategory(data: any):Promise<any> {
         //const user = this.usersRepository.create(data);
         console.log("clalled mysql add method called")
         console.log(data)
         console.log(data.parentCategories)
-
-
-        if(data.parentCategories!=undefined){
-        let lastidx = data.parentCategories[data.parentCategories.length-1]
-        console.log("LAST IDX VALUE==========", lastidx);
-
-        let datavalue= await this.categoryRepository.findOne({
-          where:{title:lastidx},})
-
-
-
-          if(datavalue.parentId){
-            // var pCategory= await this.categoryRepository.findOne(data.parentId);
-            // console.log("PARENT DATA==================",pCategory);
-           
-  
-            let user = new Category();
-            user.parentId = datavalue.parentId;
-            user.slug = datavalue.slug;
-            user.status = datavalue.status;
-            user.title = data.title;
-            user.order = datavalue.order;
-            
-            
-            // var x = JSON.stringify(data)
-            // console.log("JSON AS STRING===========",typeof x)
-            // console.log("JSON AS STRING===========",x)
-            // var x = JSON.parse(x)
-            // console.log("JSON AS STRING===========",typeof x)
-            // console.log("JSON AS STRING===========",Object(x.parentId))
-  
-  
-            const categoryx = await  this.categoryRepository.save(user);
-           // data.parentCategory=pCategory;
-            // delete data.parentId;
-            return categoryx;
-  
-          }
-          
+        if (data.parentCategories.length){
+          data.parentId = data.parentCategories[data.parentCategories.length-1]
         }
-          
-          data.parentId = null
-          const new_category = await  this.categoryRepository.save(data);
+        else{
+        data.parentId = null
+        }
+        const new_category = await  this.categoryRepository.save(data);
         return data;
-       
       }
 
       

@@ -47,7 +47,6 @@ export class Category {
     image: string;
 
     @Column()
-
     createdAt: string;
 
     @Column()
